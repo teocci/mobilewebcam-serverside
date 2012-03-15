@@ -17,6 +17,4 @@ if(strlen(basename($_FILES["userfile"]["name"])) > 0)
   else
     echo "Error copying!";
 }
-else
-  echo $_POST["userfile"]; // some plain text!
 ?>
