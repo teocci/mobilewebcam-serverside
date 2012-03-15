@@ -1,0 +1,4 @@
+AuthType Basic 
+AuthName "Restricted Directory" 
+AuthUserFile /I_RECOMMEND_TO_INSERT_HERE_YOUR_FULL_PATH_ON_YOUR_SERVER_TO_DIRECTORY_ABOVE_MOBILEWEBCAM/.htpasswd 
+require valid-user
