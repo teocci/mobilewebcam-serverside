@@ -107,7 +107,7 @@ if($start > 0)
     echo "<a href='gallery.php?start=".$lstart."&len=".$len."&img_width=".$img_width."&img_height=".$img_height."'>BACK</a> ";
 }
 
-echo " <<<===---===>>> ";
+echo " <<<===--- ".date("Y M d H:i:s", filemtime($dir."/".$files[$start]))." ---===>>> ";
 
 if($last < sizeof($files))
 {
