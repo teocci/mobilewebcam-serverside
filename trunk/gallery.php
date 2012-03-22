@@ -119,6 +119,9 @@ if($last < sizeof($files))
       $lstart = ($start + 10 * $len);
       echo "<a href='gallery.php?start=".$lstart."&len=".$len."&img_width=".$img_width."&img_height=".$img_height."'>10x NEXT</a>";
     }
+
+    $lstart = (sizeof($files) - $len);
+    echo "<a href='gallery.php?start=".$lstart."&len=".$len."&img_width=".$img_width."&img_height=".$img_height."'>LAST</a>";
 }
 
 echo "<hr>Timelapse: ";
