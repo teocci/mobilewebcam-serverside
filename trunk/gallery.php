@@ -77,7 +77,7 @@ for($count = $start; $count < $last; $count++)
     $smallname = $thumbdir."/".$filename;
     if(!file_exists($smallname))
     {
-        $image = imagecreatefromjpeg("archive/".$filename);
+        $image = @imagecreatefromjpeg("archive/".$filename);
         if($image)
         {
             $new_image = imagecreatetruecolor($img_width, $img_height);
