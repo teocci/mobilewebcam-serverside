@@ -1,0 +1,24 @@
+Version 1.01, 09/23/2012
+copy2archive.pl: added "&delete_old_dirs"; delets old directories via rmtree;
+    bugfix: created directories every day, even when no picture was uploaded;
+    create directories only "if (time - $mtime > 15 && time - $mtime < 3600)"
+    
+added "image.php" to view large image, called from gallery.php
+
+
+Version 1.00, 09/08/2012
+
+cam.php:
+* copy uploaded file into archive AND create thumbnails;
+* create every day a new folder in archive;
+
+mjpeg.php and gallery.php:
+* fixed some warnings;
+* common used functions are placed in common.php;
+* listing of all available directories in "top" navigation bar;
+
+new file index.php
+* uses common.php, listing of all available direcrtories in "top" navigation bar;
+
+new file copy2archive.pl, copy2_utils.pm, copy2_config.pm
+* perl script which copies uploaded file into archive and creates thumbnails;
