@@ -1,3 +1,12 @@
+Version 1.02, 11/21/2012
+copy2archive.pl:
+* accepts filenames "current.jpg" and files in format datetime like "20121121134905"
+* size of archive is defined for each directory in copy2_config.pm;
+  define one subfolder for each cam:
+  @webcams = (webcam1, webcam2, webcam3)
+  define number of days to be stored in each subfolder:
+  @archivesize = (31,7,3);
+
 Version 1.01, 09/23/2012
 copy2archive.pl: added "&delete_old_dirs"; delets old directories via rmtree;
     bugfix: created directories every day, even when no picture was uploaded;
