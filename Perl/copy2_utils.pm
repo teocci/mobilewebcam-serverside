@@ -69,23 +69,33 @@ sub format_time {
 }
 sub delete_old_dirs
 {
-   my ($path) = @_;
+   my ($i, $path) = @_;
    my ($file, $file1, $pattern, $mtime);
    my ($sec,$min,$hours,$day,$month,$year);
    my (@files);
+   # set number of seconds, which will be kept in archive; day has 86400 seconds:
+   my $archive_size;
+   
+   $archive_size = $archivesize[$i] * 24 * 3600;
+   
+   
+   
    opendir(DIR,$path);
    while ($file = readdir(DIR))
    {
       if ($file =~ /\d{4}\-\d{2}\-\d{2}/)
       {
          ($year, $month, $day) = split(/\-/,$file);
-         $mtime = timelocal(0,0,0,$day,$month-1,$year); 
-         if (time - $mtime > $archive_size)
-         {          
-            $file1 = $path.$file;
-            &message ($log_level, "delete $file1<br>\n");
-            rmtree ($file1);
-         }    
+         $mtime = timelocal(0,0,0,$day,$month-1,$year);
+         if ($archive_size > 0)
+         {
+            if (time - $mtime > $archive_size)
+            {          
+               $file1 = $path.$file;
+               &message ($log_level, "delete $file1<br>\n");
+               rmtree ($file1);
+            }
+         }
       }
    }
    closedir(DIR);
