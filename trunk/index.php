@@ -1,8 +1,21 @@
 <?php
+// version 1.02, 11/25/2012;
 require 'common.php';
+
+
 getparams();
-getdirs();
+$status = getdirs();
+
+if ($status == 0)
+{
+    print "directory \"$archive_dir\" not found<br>";
+    exit;
+}
 getfiles();
+
+
+
+
 ?>
 
 <html>
@@ -10,22 +23,22 @@ getfiles();
 
 <?php
 navigation_top();
+
 ?>
 
-    
-<img src="current.jpg" name="refresh"> 
-      <script language="JavaScript" type="text/javascript"> 
-      <!-- 
-      image = "current.jpg" //name of the image 
-      function Reload() { 
-      tmp = new Date(); 
-      tmp = "?"+tmp.getTime() 
-      document.images["refresh"].src = image+tmp 
-      setTimeout("Reload()",1000) 
-      } 
-      Reload(); 
-      // --> 
-      </script>
+    <?php print "<img src=\"$current\" name=\"refresh\">"; ?>
+    <script language="JavaScript" type="text/javascript"> 
+    <!--
+        <?php print "image = \"$current\""; ?>
+        function Reload() { 
+        tmp = new Date(); 
+        tmp = "?"+tmp.getTime() 
+        document.images["refresh"].src = image+tmp 
+        setTimeout("Reload()",1000) 
+        } 
+        Reload(); 
+    // --> 
+    </script>
       
       
 </body>

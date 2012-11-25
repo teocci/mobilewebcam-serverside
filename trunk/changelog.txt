@@ -1,22 +1,57 @@
+***** cron job "copy2archive.pl" *****
+
 Version 1.02, 11/21/2012
-copy2archive.pl:
 * accepts filenames "current.jpg" and files in format datetime like "20121121134905"
+
 * size of archive is defined for each directory in copy2_config.pm;
-  define one subfolder for each cam:
+
+* define one subfolder for each cam:
   @webcams = (webcam1, webcam2, webcam3)
-  define number of days to be stored in each subfolder:
+  
+* define number of days to be stored of each subfolder:
   @archivesize = (31,7,3);
+  
+* define filename of upload file of each subfolder;
+  set mode to "0", if upload file in in datetime format "20121121134905";
+  @mode = (0,0,0);
 
 Version 1.01, 09/23/2012
 copy2archive.pl: added "&delete_old_dirs"; delets old directories via rmtree;
     bugfix: created directories every day, even when no picture was uploaded;
     create directories only "if (time - $mtime > 15 && time - $mtime < 3600)"
     
-added "image.php" to view large image, called from gallery.php
+***** Gallery PHP Script *****
+Version 1.02, 11/25/2012
+* added a navigation in image.php
+
+* added functions "delete" and "copy" in image.php (not ready in this version)
+
+* One set of PHP scripts is managing several cameras
+  Install gallery script in http-root
+  manage different galleries in subfolders
+  (added cgi-parameter "cam=subfolder")
+  Install a redirect script index.php in each subfolder
+  
+* define the root-directory of your gallery scripts in common.php
+  set $http_root to "/" or "/mygallery/ or ...
+  
+* copy gallery scripts in your $http_root directory
+
+* upload your images in your $http_root directory or in a subdirectory
+  configure "change settings --> Upload --> FTP
+    Enable FTP:     checked
+    Frequency:      1
+    Default name:   current.jpg
+    Numbered:       NOT checked
+    Date and Time:  checked
+    ...
+    Directory:      Enter your Upload Directory (Preceding AND Trailing Slash)
+    ...
+    
+*   if you are uploading to a subfolder, you might wish to install the redirect script index.php
 
 
 Version 1.00, 09/08/2012
-
 cam.php:
 * copy uploaded file into archive AND create thumbnails;
 * create every day a new folder in archive;
@@ -29,5 +64,5 @@ mjpeg.php and gallery.php:
 new file index.php
 * uses common.php, listing of all available direcrtories in "top" navigation bar;
 
-new file copy2archive.pl, copy2_utils.pm, copy2_config.pm
-* perl script which copies uploaded file into archive and creates thumbnails;
+new file "image.php"
+* to view large image, called from gallery.php

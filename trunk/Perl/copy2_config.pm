@@ -15,7 +15,7 @@ our @EXPORT = qw(
 $version
 $abs_path $log_level
 $thumbnail_width $thumbnail_height
-@webcams @archivesize
+@webcams @archivesize @mode
 );
 our $version = "1.02";
 
@@ -28,12 +28,18 @@ our $thumbnail_height=240;
 
 # define the name of the root path of each webcam on this domain:
 our (@webcams);
-@webcams = ("webcam1", "webcam2", "webcam3");
+@webcams = ("webcam1", "webcam2", "webcam3", "test1");
 
 # define the size of archive; enter the number of days to be stored in archive;
 # directories older than specified number of days will be deleted;
 our (@archivesize);
-@archivesize = (31,31,3);
+@archivesize = (31,31,3,3);
+
+# define the filename of the uploaded file
+# mode = 0: upload file is "datetime", like "20121124095959"
+# mode = 1: upload file is "current.jpg"
+our (@mode);
+@mode = (0,0,0,0);
 
 
 our ($abs_path);

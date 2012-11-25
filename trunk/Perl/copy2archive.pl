@@ -19,7 +19,7 @@ my ($rt_stop, $rt_start, $rt_limit, $tme);
 
 my ($pattern1, $i, $year, $month, $day, $hour, $minute, $second, $fname);
 my (@files);
-my (@filenames);
+
 
 &getparams;
 
@@ -46,11 +46,6 @@ $rt_stop     = $rt_start + $rt_limit;
 &message (1, "Content-Type: text/html\n\n");
 &message (1, "Copy2Archive, Version $version<br>\n");
 
-for ($i=0;$i <= $#webcams; $i++)
-{
-    $filenames[$i] = 0;
-}
-
 
 do
 {
@@ -65,39 +60,34 @@ do
        
 
 
-    
-        $pattern1 = $abs_path."/".$path."/".&format_time('%Y%m%d',time)."*.jpg";
-        @files  = glob("$pattern1");
-        if (-s $files[0])
+        if ($mode[$i] == 0)
         {
-            $filenames[$i] = 1;
-            $upload_file = $files[0];
-            $fname = basename($upload_file);
-            $mtime = (stat($upload_file))[9];
-            $year =   substr($fname, 0, 4);
-            $month =  substr($fname, 4, 2) - 1;
-            $day =    substr($fname, 6, 2);
-            $hour =   substr($fname, 8, 2);
-            $minute = substr($fname, 10, 2);
-            $second = substr($fname, 12, 2);
-            if ($month > 12) {$month = 11};
-            if ($month < 0) {$month = 0};
-            
-            $mtime1 = timelocal($second,$minute,$hour,$day,$month,$year);
-
-            
+            $pattern1 = $abs_path."/".$path."/".&format_time('%Y%m%d',time)."*.jpg";
+            @files  = glob("$pattern1");
+            if (-s $files[0])
+            {
+                $upload_file = $files[0];
+                $fname = basename($upload_file);
+                $mtime = (stat($upload_file))[9];
+                $year =   substr($fname, 0, 4);
+                $month =  substr($fname, 4, 2) - 1;
+                $day =    substr($fname, 6, 2);
+                $hour =   substr($fname, 8, 2);
+                $minute = substr($fname, 10, 2);
+                $second = substr($fname, 12, 2);
+                if ($month > 12) {$month = 11};
+                if ($month < 0) {$month = 0};
+                
+                $mtime1 = timelocal($second,$minute,$hour,$day,$month,$year); 
+            }
         }
-        elsif (-s $current)
+        elsif ($mode[$i] == 1)
         {
-            if ($filenames[$i] == 0)
+            if (-s $current)
             {
                 $mtime = (stat($current))[9];
+                $mtime1 = $mtime;
             }
-            else
-            {
-                $mtime = 0;
-            }
-            $mtime1 = $mtime;
         }
         else
         {
@@ -139,7 +129,7 @@ do
                     $new->Write($thumbnail_file);
                     chmod (0755, $thumbnail_file);
                     
-                    if ($filenames[$i] == 1)
+                    if ($mode[$i] == 0)
                     {
                         &message ($log_level, "copy ($upload_file, $current)<br>\n");
                         copy ($upload_file, $current);
@@ -148,10 +138,11 @@ do
                     
                 }
             }
-        }    
+        }
+        $i++;
     }
     if ($rt_limit > 0) {sleep(5)};
-    $i++;
+
 } until (time >= $rt_stop);
 &message (1, "exit<br>\n");
 
