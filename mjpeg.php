@@ -70,5 +70,4 @@ function file_extension($filename)
     };
     return $tmp;
 };
-
 ?>
