@@ -21,6 +21,14 @@ copy2archive.pl: added "&delete_old_dirs"; delets old directories via rmtree;
     create directories only "if (time - $mtime > 15 && time - $mtime < 3600)"
     
 ***** Gallery PHP Script *****
+Version 1.03, 12/08/2012
+bug fixes:
+index.php: updated javascript;
+common.php, function action(): calculation of index corrected;
+cam.php: upload only filetype jpg;
+
+
+
 Version 1.02, 11/25/2012
 * added a navigation in image.php
 
