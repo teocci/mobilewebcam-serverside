@@ -1,10 +1,10 @@
 <?php
 // new file uploaded? copy to $root_dir; create thumbnail;
-// version 1.01, 09/23/2012;
+// version 1.03, 12/16/2012;
 
 $uploadfile = "";
 $today = date ("Y-m-d", time());
-// all archives are in "root_dir"
+// all archives are in "root_dir" of the gallery
 $root_dir = "archive";
 
 // every day a new directory archive/2012-09-08, archive/2012-09-09, ...
@@ -28,19 +28,27 @@ if(strlen(basename($_FILES["userfile"]["name"])) > 0)
     
   if(!file_exists($thumbdir))
     mkdir($thumbdir, 0777);       
-  
-  $filename = filemtime($uploadfile).".jpg";
-  $archivefile =  $working_dir."/".$filename;
-  copy($uploadfile, $archivefile);
-  
-  if(move_uploaded_file($_FILES["userfile"]["tmp_name"], $uploadfile))
+ 
+  if ($_FILES["userfile"]["type"] == "image/jpeg")
   {
-    @chmod($uploadfile,0755);
-    echo "Upload Ok!<br>";
+    if(move_uploaded_file($_FILES["userfile"]["tmp_name"], $uploadfile))
+    {
+    
+      @chmod($uploadfile,0755);
+      //$filename = filemtime($uploadfile).".jpg";
+      $filename = time().".jpg";
+      $archivefile =  $working_dir."/".$filename;
+      copy($uploadfile, $archivefile);
+      if ($uploadfile <> 'current.jpg')
+      {
+        rename ($uploadfile, 'current.jpg');
+      }
+      echo "Upload Ok!<br>";
+    }
+    else
+      echo "Error create archive-file!<br>";
+    }
   }
-  else
-    echo "Error create archive-file!<br>";
-}
 
 $smallname = $thumbdir."/".$filename;
 if(!file_exists($smallname))

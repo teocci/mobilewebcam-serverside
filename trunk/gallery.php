@@ -1,5 +1,5 @@
 <?php
-// version 1.02, 11/25/2012;
+// version 1.03, 12/03/2012;
 // example usage: gallery.php?start=14&len=12
 require 'common.php';
 
@@ -27,9 +27,9 @@ echo "<p>";
 if($start > sizeof($files))
     $start = sizeof($files)-1;
 $last = $start + $len;
-if($last > sizeof($files))
+if($last >= sizeof($files))
     $last = sizeof($files)-1;
-for($count = $start; $count < $last; $count++)
+for($count = $start; $count <= $last; $count++)
 {
     $filename = $files[$count];
     $smallname = $thumbdir."/".$filename;

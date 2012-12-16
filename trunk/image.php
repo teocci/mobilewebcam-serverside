@@ -1,5 +1,5 @@
 <?php
-// version 1.02, 09/25/2012;
+// version 1.03, 12/03/2012;
 require 'common.php';
 
 getparams();

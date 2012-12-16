@@ -1,9 +1,10 @@
 <?php
-// version 1.02, 11/25/2012;
+// version 1.03, 12/03/2012;
 require 'common.php';
 
 
 getparams();
+
 $status = getdirs();
 
 if ($status == 0)
@@ -26,10 +27,10 @@ navigation_top();
 
 ?>
 
-    <?php print "<img src=\"$current\" name=\"refresh\">"; ?>
+    <?php print "<img src=\"$current\" name=\"refresh\">\n" ?>
     <script language="JavaScript" type="text/javascript"> 
     <!--
-        <?php print "image = \"$current\""; ?>
+        <?php print "image = \"$current\"\n"; ?>
         function Reload() { 
         tmp = new Date(); 
         tmp = "?"+tmp.getTime() 

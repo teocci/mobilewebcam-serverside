@@ -1,5 +1,5 @@
 <?php
-// version 1.02, 11/25/2012;
+// version 1.03, 12/03/2012;
 // common used functions of index.php, gallery.php, mjpeg.php
 
 // absolute  server path to the script:
@@ -124,10 +124,10 @@ Navigation on the top of the gallery; select days, homepage, Timelaps of the day
     };
     echo "<br>";
 
-/*    
+   
     echo "Timelapse: ";
     echo "<a href='$http_dir"."mjpeg.php?cam=$cam&dir=$dir'>".$mm."/".$dd."</a> <br>";
-*/
+
     for($d = 0; $d < sizeof($days); $d++)
     {
         $day = $days[$d];
@@ -246,24 +246,26 @@ function action()
         $largename = $root_dir.$working_dir."/".$files[$index];
         unlink($smallname);
         unlink($largename);
-       if ($index < sizeof($files) - 2)
+       if ($index < sizeof($files) - 1)
        {
-           $index = $index+1;
+           $index = $index;
+           $img = $files[$index+1];   
        }
        else
        {
            if ($index > 0)
            {
                 $index = $index-1;
+                $img = $files[$index-1];   
            }
        }
-       $img = $files[$index];         
+             
     }
     
 }
 function getdirs()
 {
-    global $archive_dir, $days, $last_dir, $working_dir, $thumbdir, $dir, $cam, $root_dir, $http_dir, $current;
+    global $archive_dir, $days, $last_dir, $working_dir, $thumbdir, $dir, $cam, $root_dir, $http_dir, $current, $current_url;
     // $today = date ("Y-m-d", time());
       
     $status = 0;
@@ -272,7 +274,7 @@ function getdirs()
     
     $archive_dir_abs = $root_dir.$archive_dir;
     $current = $http_dir.$cam."/current.jpg";
-    $current = str_replace("//", "/", $current);   
+    $current = str_replace("//", "/", $current);
 
     $days = array();
     $pattern = '/\d{4}-\d{2}-\d{2}/';
