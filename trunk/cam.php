@@ -29,8 +29,8 @@ if(strlen(basename($_FILES["userfile"]["name"])) > 0)
   if(!file_exists($thumbdir))
     mkdir($thumbdir, 0777);       
  
-  if ($_FILES["userfile"]["type"] == "image/jpeg")
-  {
+ // if ($_FILES["userfile"]["type"] == "image/jpeg")
+ // {
     if(move_uploaded_file($_FILES["userfile"]["tmp_name"], $uploadfile))
     {
     
@@ -38,6 +38,7 @@ if(strlen(basename($_FILES["userfile"]["name"])) > 0)
       //$filename = filemtime($uploadfile).".jpg";
       $filename = time().".jpg";
       $archivefile =  $working_dir."/".$filename;
+      $smallname = $thumbdir."/".$filename;
       copy($uploadfile, $archivefile);
       if ($uploadfile <> 'current.jpg')
       {
@@ -48,9 +49,9 @@ if(strlen(basename($_FILES["userfile"]["name"])) > 0)
     else
       echo "Error create archive-file!<br>";
     }
-  }
+//  }
 
-$smallname = $thumbdir."/".$filename;
+
 if(!file_exists($smallname))
 {
   $image = @imagecreatefromjpeg($archivefile);
