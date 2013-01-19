@@ -1,26 +1,10 @@
-***** cron job "copy2archive.pl" *****
-
-Version 1.02, 11/21/2012
-* accepts filenames "current.jpg" and files in format datetime like "20121121134905"
-
-* size of archive is defined for each directory in copy2_config.pm;
-
-* define one subfolder for each cam:
-  @webcams = (webcam1, webcam2, webcam3)
-  
-* define number of days to be stored of each subfolder:
-  @archivesize = (31,7,3);
-  
-* define filename of upload file of each subfolder;
-  set mode to "0", if upload file in in datetime format "20121121134905";
-  @mode = (0,0,0);
-
-Version 1.01, 09/23/2012
-copy2archive.pl: added "&delete_old_dirs"; delets old directories via rmtree;
-    bugfix: created directories every day, even when no picture was uploaded;
-    create directories only "if (time - $mtime > 15 && time - $mtime < 3600)"
-    
 ***** Gallery PHP Script *****
+Version 1.04, 01/19/2013
+mjpeg.php: timelaps script rewritten as java-script;
+common.php: small changes;
+cam.php: now is checking filetype with exif_imagetype;
+
+
 Version 1.03, 12/08/2012
 bug fixes:
 index.php: updated javascript;
@@ -74,3 +58,28 @@ new file index.php
 
 new file "image.php"
 * to view large image, called from gallery.php
+
+
+***** cron job "copy2archive.pl" *****
+
+Version 1.02, 11/21/2012
+* accepts filenames "current.jpg" and files in format datetime like "20121121134905"
+
+* size of archive is defined for each directory in copy2_config.pm;
+
+* define one subfolder for each cam:
+  @webcams = (webcam1, webcam2, webcam3)
+  
+* define number of days to be stored of each subfolder:
+  @archivesize = (31,7,3);
+  
+* define filename of upload file of each subfolder;
+  set mode to "0", if upload file in in datetime format "20121121134905";
+  @mode = (0,0,0);
+
+Version 1.01, 09/23/2012
+copy2archive.pl: added "&delete_old_dirs"; delets old directories via rmtree;
+    bugfix: created directories every day, even when no picture was uploaded;
+    create directories only "if (time - $mtime > 15 && time - $mtime < 3600)"
+    
+

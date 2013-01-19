@@ -1,5 +1,5 @@
 <?php
-// version 1.03, 12/03/2012;
+// version 1.04, 12/03/2012;
 // common used functions of index.php, gallery.php, mjpeg.php
 
 // absolute  server path to the script:
@@ -61,7 +61,7 @@ action: commands like "delete", "copy", or...;
   }
   else
   {
-     $fps = 2;
+     $fps = 1;
   };
   if($fps <= 0) {$fps = 0.0001;};
 
@@ -125,8 +125,8 @@ Navigation on the top of the gallery; select days, homepage, Timelaps of the day
     echo "<br>";
 
    
-    echo "Timelapse: ";
-    echo "<a href='$http_dir"."mjpeg.php?cam=$cam&dir=$dir'>".$mm."/".$dd."</a> <br>";
+    // echo "Timelapse: ";
+    // echo "<a href='$http_dir"."mjpeg.php?cam=$cam&dir=$dir'>".$mm."/".$dd."</a> <br>";
 
     for($d = 0; $d < sizeof($days); $d++)
     {
@@ -234,6 +234,24 @@ Navigation on the bottom of the selected image in image.php; commands like "dele
     echo "<a href='image.php?cam=$cam&img=$file&dir=$dir&i=$index&action=copy'>copy to archive</a> ";
     echo "<a href='image.php?cam=$cam&img=$file&dir=$dir&i=$index&action=delete'>delete</a> ";  
 }
+function display_current_image($current)
+{
+    print "<img src=\"$current\" name=\"refresh\"> \n";
+    print "<script language=\"JavaScript\" type=\"text/javascript\"> \n";
+    print "<!-- \n";
+    print "image = \"$current\" \n";
+    print "function Reload() { \n";
+    print "tmp = new Date() \n";
+    print "tmp = \"?\"+tmp.getTime() \n"; 
+    print "document.images[\"refresh\"].src = image+tmp \n";
+    print "setTimeout(\"Reload()\",1000) \n";
+    print "} \n";
+    print "Reload() \n";
+    print "// --> \n";
+    print "</script>  \n";
+}
+
+
 function action()
 {
 /*
@@ -278,7 +296,7 @@ function getdirs()
 
     $days = array();
     $pattern = '/\d{4}-\d{2}-\d{2}/';
-    
+    // print "archive_dir_abs=$archive_dir_abs<br>\n";
     if (file_exists($archive_dir_abs))
     {
         $status = 1;
@@ -306,12 +324,12 @@ function getdirs()
     $last_dir = end($days);
     if ($dir == "") $dir = $last_dir;
     $working_dir = $archive_dir."/$dir";
-    $thumbdir = $working_dir."/320x240";
-    return ($status);
+    $thumbdir = $working_dir."/thumbnails";
+    return ($status==1);
 }
 function getfiles()
 {
-    global $working_dir, $files, $root_dir;
+    global $working_dir, $files, $root_dir, $fileslist, $thumbdir;
     $working_dir_abs = $root_dir.$working_dir;
     if (file_exists($working_dir_abs))
     {
@@ -325,6 +343,7 @@ function getfiles()
                 {
                     $files[] = $filename;
                     $fullnamefiles[] = $working_dir_abs."/".$filename;
+                    $fileslist[] = $working_dir."/".$filename;
                 }
 //          }
         }
@@ -337,7 +356,7 @@ function getfiles()
             array_map( 'filemtime', $fullnamefiles ),
             SORT_NUMERIC,
             SORT_ASC,
-            $files
+            $fileslist
             );
     }
 }

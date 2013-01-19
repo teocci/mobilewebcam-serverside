@@ -1,73 +1,74 @@
 <?php
-// version 1.00, 09/08/2012;
-// call /mjpeg.php?fps=2&start=0&len=50
-require 'common.php';
+// version 1.04, 12/01/2013;
+// usage: http://www.opensmartcam.com/mjpeg.php?cam=MyWebcamDirectory&dir=2013-01-19
 
+// comment out the following 4 lines, if you do not use a database and no registration script:
+session_start();
+session_regenerate_id(true);
+require 'register/includes/functions.php';
+require 'register/includes/config.php';
+
+// read cgi parameters, scan directories, prepare a list of pictures:
+require 'common.php';
 getparams();
 getdirs();
 getfiles();
-
-$boundary = "my_mjpeg";
-
-header("Cache-Control: no-store, no-cache, must-revalidate, pre-check=0, post-check=0, max-age=0");
-header("Cache-Control: private");
-header("Pragma: no-cache");
-header("Expires: -1");
-header("Content-type: multipart/x-mixed-replace; boundary=$boundary");
-
-print "--$boundary\n";
-
-@ini_set('implicit_flush', 1);
-for ($i = 0; $i < ob_get_level(); $i++)
-    ob_end_flush();
-ob_implicit_flush(1);
-
-$waittime = 1000 * 1000 / $fps;
-
-$max = sizeof($files);
-if ($max > 288)
-{
-  $max = 288;
-};
-
-$last = $start + $max - 1;
-
-if($last > sizeof($files))
-{
-    $last = sizeof($files) - 1;
-};
-
-for($i = $start; $i <= $last;)
-{
-    $tmp = file_extension($thumbdir."/".$files[$i]);
-    if($tmp == "jpg")
-    {
-      print "Content-type: image/jpeg\n\n";
-      print file_get_contents($thumbdir."/".$files[$i]);
-      print "--$boundary\n";
-    }
-    else
-    {
-      //print "Content-type: text/html\n\n";
-      //print "--$boundary\n";
-    }
-    ;
-    $i++;
-    usleep($waittime);
-};
-
-
-function file_extension($filename)
-{
-    $path_info = pathinfo($filename);
-    if (isset($path_info['extension']))
-    {
-        $tmp = $path_info['extension'];
-    }
-    else
-    {
-         $tmp = "";
-    };
-    return $tmp;
-};
 ?>
+
+<html>
+<head>
+<title>OpenSmartCam</title>
+<link rel="stylesheet" href="/css/osc1.css" type="text/css" />
+<script src="js/mjpeg.js" type="text/javascript"></script>
+</head>
+<body>
+
+<div id='wrapper'>
+<?php
+    include("inc/navi.php");
+?>
+
+<div id='content'>
+    
+<p><a href='index.php<?php print "?cam=$cam&dir=";?>'>Index</a></p>
+
+
+<img name="foto">  
+
+<SCRIPT LANGUAGE="JavaScript"> 
+var Pic = new Array();  
+var Pic= ["<?php echo join("\", \"", $fileslist); ?>"];
+var t; 
+var j = 0; 
+var p = Pic.length;
+var intervall = 500;
+var inc = 1;
+var inc2 = 0;
+var stop = 0;
+
+var preLoad = new Array(); 
+//load all images:
+for (i = 0; i < p; i++)
+{ 
+    preLoad[i] = new Image(); 
+    preLoad[i].src = Pic[i]; 
+}
+document.images['foto'].src = preLoad[0].src;
+</SCRIPT>
+
+<form method = "post" name="TimelapsNavi" >
+<input type="button" id="StartStop" name="Start" value="Start" onClick="start(1)";>
+<input type="button" id="PauseContinue" name="Pause" value="Pause ||" onClick="pause(1)";>
+<input type="button" id="ForwardRewind" name="Change" value="Rewind <<" onClick="rewind(1)";>
+
+</form>
+<span id="fooBar">&nbsp;</span>
+</div> <!--id=content-->
+</div> <!--id=wrapper-->
+
+<?php
+    include("inc/footer.php");
+?>
+
+</body>
+</html>

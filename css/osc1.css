@@ -1,0 +1,138 @@
+#wrapper
+{
+	width: 100%;
+        position:relative;
+        min-height:99%;
+        height:auto !important;
+        height:99%;
+	margin:0 auto -40px auto;
+}
+#header
+{
+	width:100%;
+	text-align:left;
+	background-color: #c0c0c0;
+	height:25px;
+	padding: 0px 0px 0px 80px;
+	background:-moz-linear-gradient(0% 100% 90deg,#bfbfbf, #cfcfcf);
+	background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#cfcfcf), to(#bfbfbf));
+}
+#header a
+{
+	text-decoration: none;
+	padding: 0px 10px 0px 0px;
+	text-shadow: white 0px 0px 1px;	
+}
+#header a:hover
+{
+	text-decoration: underline;
+}
+#content
+{
+	width: 1024px;
+	margin: 10px 80px 0px 80px;
+	position: relative;
+	background: #FFFFFF;
+	padding: 0px 0px 40px 0px;	
+}
+#footer
+{
+	width: 1024px;
+	color: #C0C0C0;
+        position:relative;
+	margin: 0px 80px 0px 80px;
+	padding: 0px 0px 0px 0px;
+	height:40px;	
+	font-size: 12px;
+}
+#footer a {
+	color: #A0A0FF;
+	text-decoration: underline;
+}
+.red
+{
+	color: #FF0000;
+}
+html, body {
+	margin: 0px auto 0px auto;
+	padding: 0px;
+	position: relative;
+	height: 99%;
+	background: #FFFFFF;
+	text-align: center;
+	
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 16px;
+	line-height: 20px;
+	color: #000000;
+} 
+
+p
+{
+	text-align: left;
+	padding: 0px 0px 0px 0px;
+}
+
+h1,h2,h3 {
+	text-align: left;
+	font-size: 24px;
+	font-weight: bold;
+	line-height: 32px;
+	margin: 0;
+	padding: 4px 0 4px 0;
+	color: #009090;
+	text-shadow: 1px 1px 1px #e0e0e0;		
+}
+h2 {
+	font-size: 18px;
+	font-weight: normal;
+	line-height: 18px;
+	padding: 16px 0 6px 0;	
+}
+h3 {
+	font-size: 16px;
+	font-weight: normal;
+	line-height: 16px;
+	padding: 16px 0 6px 0;	
+}
+
+a {
+	color: #0000ff;
+	text-decoration: underline;
+}
+#table-3 {
+	border: 1px solid #DFDFDF;
+	background-color: #F0F0F0;
+
+	width: 100%;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	color: #333;
+}
+#table-3 td, #table-3 th {
+	border-top-color: white;
+	border-bottom: 1px solid #DFDFDF;
+
+}
+#table-3 th {
+	
+	/*font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
+	font-family: Georgia,"Times New Roman","Bitstream Charter",Times,serif;
+	text-shadow: white 1px 1px 1px;
+	font-weight: normal;
+		
+	color: #333;
+	padding: 7px 7px 8px;
+	text-align: left;
+	line-height: 1.3em;
+	font-size: 16px;
+}
+#table-3 td {
+	font-size: 16px;
+	color: #555;
+	padding: 4px 7px 2px;
+	vertical-align: top;
+}
+
