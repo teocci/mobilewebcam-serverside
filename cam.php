@@ -17,6 +17,7 @@ $thumbdir = $working_dir."/320x240";
 if(strlen(basename($_FILES["userfile"]["name"])) > 0)
 {
   $uploadfile = basename($_FILES["userfile"]["name"]);
+  $uploadlog = basename($_POST["log"]);
   
   if(!file_exists($root_dir))
   {
@@ -66,6 +67,10 @@ if(!file_exists($smallname))
   {
     echo "Error create thumbnail!<br>";
   }
+  
+    $fh = fopen("log.txt", 'w') or die("Error: Can't open log file!");
+    fwrite($fh, $uploadlog);
+    fclose($fh);  
 }
 
 ?>
